@@ -1,0 +1,16 @@
+source("http://www.bioconductor.org/biocLite.R")
+
+install.packages("devtools",repos="http://cran.us.r-project.org")
+install.packages('XML',repos="http://cran.us.r-project.org")
+install.packages('ggplot2',repos="http://cran.us.r-project.org")
+
+biocLite('annotate', ask=FALSE)
+biocLite('genefilter', ask=FALSE)
+biocLite('sva', ask=FALSE)
+biocLite('rtracklayer', ask=FALSE)
+options(download.file.method = "wininet")
+biocLite('alyssafrazee/RSkittleBrewer', ask=FALSE)
+options(download.file.method = NULL)
+biocLite('dplyr', ask=FALSE)
+biocLite('devtools', ask=FALSE)
+biocLite('ballgown', ask=FALSE)
