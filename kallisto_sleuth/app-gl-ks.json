@@ -1,0 +1,157 @@
+{
+	"available":true,
+	"name":"gl-kallisto-sleuth",
+	"label":"DNASubway Kallisto Sleuth",
+	"version":"0.0.1",
+	"helpURI": "https://pachterlab.github.io/kallisto/about.html",
+	"author":"Jorge Perez de Acha",
+	"deploymentPath":"perezde/applications/green-line/kallisto_sleuth",
+	"deploymentSystem":"data.iplantcollaborative.org",
+	"shortDescription":"Kallisto",
+	"parallelism":"SERIAL",
+	"templatePath":"wrap-gl-ks.sh",
+	"testPath":"test-gl-ks.sh",
+	"ontology": ["http://edamontology.org/topic_0091", "http://edamontology.org/operation_3219"],
+	"tags": [ "next-gen", "kallisto", "sleuth", "greenline", "dnasubway" ],
+	"checkpointable":false,
+	"executionSystem":"dev-cshl-dolan-02",
+	"executionType": "HPC",
+	"defaultMemoryPerNode":"4GB",
+	"defaultMaxRunTime": "08:00:00",
+	"defaultQueue": "dolanlc2",
+    "defaultNodeCount": 1,
+    "defaultProcessorsPerNode": 1,
+    "inputs": [
+    	{"id":"transcriptome",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true
+            }
+        },
+        {"id":"samples",
+        "value":{
+            "default": [""],
+            "required":true,
+            "visible":true
+            },
+            "semantics":{
+                "maxCardinality":50
+            }
+        },
+        {"id":"transcriptome_annotation",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true
+            }
+        }
+    ],
+    "parameters": [
+        {"id":"file_info",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true,
+            "type":"string"
+            }
+        },
+        {"id":"single_end",
+		"value": {
+			"default":true,
+			"visible":true,
+			"required":true,
+			"type":"bool"
+			}
+    	},
+        {"id":"fragment_length",
+        "value":{
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        }, 
+        {"id":"standard_deviation",
+        "value":{
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        },
+        {"id":"bias",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"bootstrap",
+        "value":{
+            "default": 100,
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        },
+        {"id":"seed",
+        "value":{
+            "default": 42,
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        },
+        {"id":"plain_text",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"fusion",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"single_overhang",
+        "value":{
+            "default":false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"fr",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"rf",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"pseudobam",
+        "value":{
+            "default": true,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        }
+    ],
+    "outputs": [
+
+    ]
+}
