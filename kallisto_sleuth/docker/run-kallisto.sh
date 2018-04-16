@@ -47,9 +47,11 @@ then
 	mkdir $output_dir
 fi
 
-if [ ! -f "kallisto_output_info.txt" ]
+if [[ "${multi_condition}" == "1" ]]
 	then
-	echo -e "sample\ttype\tpath" > kallisto_output_info.txt
+	echo -e "sample\tpath\tcondition1\tcondition2" > kallisto_output_info.txt
+else
+	echo -e "sample\tpath\tcondition" > kallisto_output_info.txt
 fi
 
 kallisto index -i index.idx $transcriptome
@@ -64,6 +66,7 @@ then
 		file_name=${file[0]}
 		sample_name=${file[1]}
 		condition=${file[2]}
+		condition2=${file[3]}
 		## might not make sense to check if its compressed for *all* cases. Maybe only for not pseudobam...
 		if file $file_name | grep -q "gzip compressed"
 			then
@@ -78,10 +81,8 @@ then
 					standard_deviation=0.05
 				fi
 			fi
-			uncompressed_file=${sample_name}.fastq
-			gunzip <$file_name >$uncompressed_file
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} --single -l $fragment_length -s $standard_deviation $uncompressed_file
-			echo -e "$sample_name\t$condition\t$output_dir/$sample_name" >> kallisto_output_info.txt
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} --single -l $fragment_length -s $standard_deviation $file_name
+			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
 			mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
 			mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
 		else
@@ -97,14 +98,11 @@ else
 		file_2=${file[1]}
 		sample_name=${file[2]}
 		condition=${file[3]}
+		condition2=${file[4]}
 		if file $file_1 | grep -q "gzip compressed" && file $file_2 | grep -q "gzip compressed"
 			then
-			uncompressed_file_1=${sample_name}_1.fastq
-			uncompressed_file_2=${sample_name}_2.fastq
-			gunzip <$file_1 >$uncompressed_file_1
-			gunzip <$file_2 >$uncompressed_file_2
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} $uncompressed_file_1 $uncompressed_file_2
-			echo -e "$sample_name\t$condition\t$output_dir/$sample_name" >> kallisto_output_info.txt
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} $file_1 $file_2
+			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
 		else
 			echo "fastq files must be gzipped compressed"
 			exit 1
