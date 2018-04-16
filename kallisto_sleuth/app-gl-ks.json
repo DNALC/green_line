@@ -64,6 +64,14 @@
 			"type":"bool"
 			}
     	},
+	{"id":"multi_condition",
+	"value":{
+		"default":false,
+		"required":false,
+		"visible":true,
+		"type":"bool"
+		}
+	},
         {"id":"fragment_length",
         "value":{
             "required":false,
