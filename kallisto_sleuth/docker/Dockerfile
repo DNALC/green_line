@@ -10,8 +10,8 @@ RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-dev
 
 # Download and install R (may the force be with you...)
 RUN wget https://cran.r-project.org/src/base/R-3/R-3.4.4.tar.gz
-RUN tar zxvf R-3.3.3.tar.gz
-WORKDIR R-3.3.3
+RUN tar zxvf R-3.4.4.tar.gz
+WORKDIR R-3.4.4
 RUN ./configure \
 	&& make -j4 \
 	&& make install
@@ -49,7 +49,7 @@ ENV PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN /opt/bin/agave-cli/bin/tenants-init -t $AGAVE_TENANT
 
 # Clean up
-RUN rm -r R-3.3.3.tar.gz R-3.3.3
+RUN rm -r R-3.4.4.tar.gz R-3.4.4
 RUN rm -r kallisto_linux-v0.44.0.tar.gz kallisto_linux-v0.44.0
 RUN rm sleuth_install.r
 RUN rm -r prinseq-lite-0.20.4.tar.gz prinseq-lite-0.20.4

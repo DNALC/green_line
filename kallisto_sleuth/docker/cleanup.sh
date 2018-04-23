@@ -8,6 +8,7 @@ done
 
 mv significant.csv ks-downloadable-output/
 mv plots/ ks-downloadable-output/
+mv sleuth_object.so ks-downloadable-output/
 mv *.bam ks-output/
 mv *.bai ks-output/
 
