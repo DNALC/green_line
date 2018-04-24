@@ -6,17 +6,11 @@ RUN yum update -y \
 
 # Install packages needed to build and compile R and used by prinseq-lite.pl
 RUN yum group install -y "Development Tools"
-RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel kernel-headers kernel-devel readline-devel libcurl-devel bzip2-devel.x86_64 xz-devel.x86_64 java-1.7.0-openjdk openssl-devel perl-Digest-MD5.x86_64
+RUN yum install -y epel-release
+RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel kernel-headers kernel-devel readline-devel libcurl-devel bzip2-devel.x86_64 xz-devel.x86_64 java-1.7.0-openjdk openssl-devel perl-Digest-MD5.x86_64 libssh2-devel
 
-# Download and install R (may the force be with you...)
-RUN wget https://cran.r-project.org/src/base/R-3/R-3.4.4.tar.gz
-RUN tar zxvf R-3.4.4.tar.gz
-WORKDIR R-3.4.4
-RUN ./configure \
-	&& make -j4 \
-	&& make install
-
-WORKDIR ../
+# Download and install R 
+RUN yum install -y R
 
 # Download kallisto and copy to bin
 RUN wget "https://github.com/pachterlab/kallisto/releases/download/v0.44.0/kallisto_linux-v0.44.0.tar.gz"
@@ -49,7 +43,6 @@ ENV PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
 RUN /opt/bin/agave-cli/bin/tenants-init -t $AGAVE_TENANT
 
 # Clean up
-RUN rm -r R-3.4.4.tar.gz R-3.4.4
 RUN rm -r kallisto_linux-v0.44.0.tar.gz kallisto_linux-v0.44.0
 RUN rm sleuth_install.r
 RUN rm -r prinseq-lite-0.20.4.tar.gz prinseq-lite-0.20.4
