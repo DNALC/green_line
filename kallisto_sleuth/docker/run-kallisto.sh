@@ -4,11 +4,6 @@ prinseq=false
 output_dir=kallisto_output
 execstr=""
 
-gunzip $index
-gunzip $annotation_file
-index=${index%.gz}
-annotation_file=${annotation_file%.gz}
-
 if [ -z ${fragment_length} ] || [ -z ${standard_deviation} ]
 then
 	echo "Fragment length and standard deviation will be calculated"
@@ -101,8 +96,10 @@ else
 		condition2=${file[4]}
 		if file $file_1 | grep -q "gzip compressed" && file $file_2 | grep -q "gzip compressed"
 			then
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} $file_1 $file_2
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t 4 --genomebam --gtf $transcriptome_annotation ${execstr} $file_1 $file_2
 			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
+			mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
+			mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
 		else
 			echo "fastq files must be gzipped compressed"
 			exit 1

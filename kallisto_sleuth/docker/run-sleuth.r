@@ -8,7 +8,7 @@ s2c <- read.table(file.path(args[1]), header=TRUE, stringsAsFactors=FALSE)
 
 so <- sleuth_prep(s2c, extra_bootstrap_summary = TRUE)
 
-type <- colnames(s2c)[2]
+type <- colnames(s2c)[3]
 
 formula <- paste0("~", type)
 so <- sleuth_fit(so, eval(parse(text=formula)), 'full')
@@ -33,53 +33,3 @@ for (test in tests) {
 
 sleuth_save(so, 'sleuth_object.so')
 
-dir.create(file.path('.', 'plots'))
-
-png('plots/plot_bootstrap.png')
-plot_bootstrap(so, sleuth_significant[1,1], units = "est_counts", color_by = type)
-dev.off()
-
-png('plots/plot_group_density.png')
-plot_group_density(so, use_filtered = TRUE, units = "tpm", trans = "log", grouping = setdiff(colnames(so$sample_to_covariates), "sample"), offset = 0)
-dev.off()
-
-png('plots/plot_pca.png')
-plot_pca(so, color_by = type)
-dev.off()
-
-png('plots/plot_loadings.png')
-plot_loadings(so)
-dev.off()
-
-for(test in valid_tests){
-	plot_name <- paste0('plots/plot_ma_', test, '.png')
-	png(plot_name)
-	print(plot_ma(so, test))
-	dev.off()
-}
-
-png('plots/plot_mean_var.png')
-plot_mean_var(so)
-dev.off()
-
-for(test in valid_tests){
-	plot_name <- paste0('plots/plot_qq_', test, '.png')
-	png(plot_name)
-	print(plot_qq(so, test))	
-	dev.off()
-}
-
-png('plots/plot_sample_heatmap.png')
-plot_sample_heatmap(so)
-dev.off()
-
-png('plots/plot_vars.png')
-plot_vars(so)
-dev.off()
-
-for(test in valid_tests){
-	plot_name <- paste0('plots/plot_volcano_', test, '.png')
-	png(plot_name)
-	print(plot_volcano(so, test))	
-	dev.off()
-}
