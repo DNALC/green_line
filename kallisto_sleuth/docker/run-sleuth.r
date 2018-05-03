@@ -3,10 +3,20 @@
 library("sleuth")
 
 args = commandArgs(trailingOnly=TRUE)
+organism <- args[2]
 
 s2c <- read.table(file.path(args[1]), header=TRUE, stringsAsFactors=FALSE)
 
-so <- sleuth_prep(s2c, extra_bootstrap_summary = TRUE)
+gene_bd <- read.table("gene_bd", header=TRUE, stringsAsFactors=FALSE)
+mart_info <- gene_bd[gene_bd$organism==organism,]
+if(nrow(mart_info) != 0) {
+	mart <- biomaRt::useMart(biomart=mart_info$biomart, dataset=mart_info$dataset, host=mart_info$host)
+	t2g <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id", "external_gene_name"), mart = mart)
+	t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+	so <- sleuth_prep(s2c, target_mapping = t2g, extra_bootstrap_summary = TRUE)
+} else {
+	so <- sleuth_prep(s2c, extra_bootstrap_summary = TRUE)
+}
 
 type <- colnames(s2c)[3]
 
@@ -20,16 +30,8 @@ sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 
 write.csv(sleuth_significant, 'significant.csv')
 
-tests <- eval(parse(text=paste0("unique(s2c[2])$", type)))
-valid_tests <- c()
-for (test in tests) {
-	tryCatch({
-		test_name <- paste0(type, test)
-		so <- sleuth_wt(so, test_name)
-		valid_tests <- c(valid_tests, test_name)
-	},
-	error=function(err){})
-}
+wald_test <- colnames(design_matrix(so))[2]
+so <- sleuth_wt(so, wald_test)
 
 sleuth_save(so, 'sleuth_object.so')
 

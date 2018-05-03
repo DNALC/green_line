@@ -7,7 +7,7 @@ RUN yum update -y \
 # Install packages needed to build and compile R and used by prinseq-lite.pl
 RUN yum group install -y "Development Tools"
 RUN yum install -y epel-release
-RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel kernel-headers kernel-devel readline-devel libcurl-devel bzip2-devel.x86_64 xz-devel.x86_64 java-1.7.0-openjdk openssl-devel perl-Digest-MD5.x86_64 libssh2-devel
+RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel kernel-headers kernel-devel readline-devel libcurl-devel bzip2-devel.x86_64 xz-devel.x86_64 java-1.7.0-openjdk openssl-devel perl-Digest-MD5.x86_64 libssh2-devel libxml2-devel.x86_64
 
 # Download and install R 
 RUN yum install -y R
