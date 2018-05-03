@@ -19,5 +19,6 @@ echo "rf=${rf}" >> envs
 echo "pseudobam=${pseudobam}" >> envs
 echo "fragment_length=${fragment_length}" >> envs
 echo "standard_deviation=${standard_deviation}" >> envs
+echo "organism=${organism}" >> envs
 
 docker run -v $PWD:/root --rm --env-file envs --entrypoint run-ks.sh gl-ks

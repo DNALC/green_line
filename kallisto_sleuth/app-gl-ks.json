@@ -45,7 +45,14 @@
             "required":true,
             "visible":true
             }
-        }
+        },
+	{"id":"gene_bd",
+	"value":{
+		"default":"/iplant/home/perezde/gene_bd",
+		"required":false,
+		"visible":true
+		}
+	}
     ],
     "parameters": [
         {"id":"file_info",
@@ -98,8 +105,8 @@
         "value":{
             "default": 100,
             "required":false,
-            "visible":true,
-            "type":"number"
+	    "visible": true,
+	    "type":"number"
             }
         },
         {"id":"seed",
@@ -157,7 +164,15 @@
             "visible":true,
             "type":"bool"
             }
-        }
+        },
+	{"id":"organism",
+	"value":{
+		"default":"",
+		"required":false,
+		"visible":true,
+		"type":"string"
+		}
+	}
     ],
     "outputs": [
 

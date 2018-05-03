@@ -76,7 +76,7 @@ then
 					standard_deviation=0.05
 				fi
 			fi
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap --genomebam --gtf $transcriptome_annotation ${execstr} --single -l $fragment_length -s $standard_deviation $file_name
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t 4 --genomebam --gtf $transcriptome_annotation ${execstr} --single -l $fragment_length -s $standard_deviation $file_name
 			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
 			mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
 			mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
