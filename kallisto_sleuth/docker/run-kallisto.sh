@@ -42,13 +42,6 @@ then
 	mkdir $output_dir
 fi
 
-if [[ "${multi_condition}" == "1" ]]
-	then
-	echo -e "sample\tpath\tcondition1\tcondition2" > kallisto_output_info.txt
-else
-	echo -e "sample\tpath\tcondition" > kallisto_output_info.txt
-fi
-
 kallisto index -i index.idx $transcriptome
 
 file_info=$( echo ${file_info} | sed 's/[{|}]/ /g' )
@@ -61,7 +54,7 @@ then
 		file_name=${file[0]}
 		sample_name=${file[1]}
 		condition=${file[2]}
-		condition2=${file[3]}
+
 		## might not make sense to check if its compressed for *all* cases. Maybe only for not pseudobam...
 		if file $file_name | grep -q "gzip compressed"
 			then
@@ -93,7 +86,6 @@ else
 		file_2=${file[1]}
 		sample_name=${file[2]}
 		condition=${file[3]}
-		condition2=${file[4]}
 		if file $file_1 | grep -q "gzip compressed" && file $file_2 | grep -q "gzip compressed"
 			then
 			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t $threads --genomebam --gtf $transcriptome_annotation ${execstr} $file_1 $file_2
