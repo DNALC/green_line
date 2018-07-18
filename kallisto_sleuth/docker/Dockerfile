@@ -60,6 +60,13 @@ RUN chmod u+x /usr/local/bin/cleanup.sh
 ADD default_entrypoint.sh /opt/bin/ 
 ADD run-ks.sh /opt/bin/
 
+# Add additional directories to avoid needing OverlaysFS @ TACC HPC
+RUN mkdir -p /work && chown root:root /work
+RUN mkdir -p /gpfs && chown root:root /gpfs
+RUN mkdir -p /data && chown root:root /data
+RUN mkdir -p /scratch && chown root:root /scratch
+
+
 WORKDIR /root
 
 ENTRYPOINT ["default_entrypoint.sh"]
