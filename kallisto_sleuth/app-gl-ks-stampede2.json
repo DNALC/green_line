@@ -1,0 +1,181 @@
+{
+	"available":true,
+	"name":"gl-kallisto-sleuth-stampede2",
+	"label":"DNASubway Kallisto Sleuth",
+	"version":"0.0.1",
+	"helpURI": "https://pachterlab.github.io/kallisto/about.html",
+	"author":"Jorge Perez de Acha",
+	"deploymentPath":"perezde/applications/green-line/kallisto_sleuth_stampede2",
+	"deploymentSystem":"data.iplantcollaborative.org",
+	"shortDescription":"Kallisto",
+	"parallelism":"SERIAL",
+	"templatePath":"wrap-gl-ks-stampede2.sh",
+	"testPath":"test-gl-ks-stampede2.sh",
+	"ontology": ["http://edamontology.org/topic_0091", "http://edamontology.org/operation_3219"],
+	"tags": [ "next-gen", "kallisto", "sleuth", "greenline", "dnasubway" ],
+	"checkpointable":false,
+	"executionSystem":"tacc-stampede2-perezde",
+	"executionType": "HPC",
+	"defaultMemoryPerNode":"4GB",
+	"defaultMaxRunTime": "08:00:00",
+	"defaultQueue": "skx-normal",
+    "defaultNodeCount": 1,
+    "defaultProcessorsPerNode": 48,
+	"modules": ["load tacc-singularity"],
+    "inputs": [
+    	{"id":"transcriptome",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true
+            }
+        },
+        {"id":"samples",
+        "value":{
+            "default": [""],
+            "required":true,
+            "visible":true
+            },
+            "semantics":{
+                "maxCardinality":50
+            }
+        },
+        {"id":"transcriptome_annotation",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true
+            }
+        },
+	{"id":"gene_bd",
+	"value":{
+		"default":"/iplant/home/perezde/gene_bd",
+		"required":false,
+		"visible":true
+		}
+	}
+    ],
+    "parameters": [
+        {"id":"file_info",
+        "value":{
+            "default": "",
+            "required":true,
+            "visible":true,
+            "type":"string"
+            }
+        },
+        {"id":"single_end",
+		"value": {
+			"default":true,
+			"visible":true,
+			"required":true,
+			"type":"bool"
+			}
+    	},
+	{"id":"multi_condition",
+	"value":{
+		"default":false,
+		"required":false,
+		"visible":true,
+		"type":"bool"
+		}
+	},
+        {"id":"fragment_length",
+        "value":{
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        }, 
+        {"id":"standard_deviation",
+        "value":{
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        },
+        {"id":"bias",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"bootstrap",
+        "value":{
+            "default": 100,
+            "required":false,
+	    "visible": true,
+	    "type":"number"
+            }
+        },
+        {"id":"seed",
+        "value":{
+            "default": 42,
+            "required":false,
+            "visible":true,
+            "type":"number"
+            }
+        },
+        {"id":"plain_text",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"fusion",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"single_overhang",
+        "value":{
+            "default":false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"fr",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"rf",
+        "value":{
+            "default": false,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+        {"id":"pseudobam",
+        "value":{
+            "default": true,
+            "required":false,
+            "visible":true,
+            "type":"bool"
+            }
+        },
+	{"id":"organism",
+	"value":{
+		"default":"",
+		"required":false,
+		"visible":true,
+		"type":"string"
+		}
+	}
+    ],
+    "outputs": [
+
+    ]
+}
