@@ -64,6 +64,7 @@ ADD run-ks.sh /opt/bin/
 RUN mkdir -p /work && chown root:root /work
 RUN mkdir -p /gpfs && chown root:root /gpfs
 RUN mkdir -p /data && chown root:root /data
+RUN mkdir -p /home1 && chown root:root /home1
 RUN mkdir -p /scratch && chown root:root /scratch
 
 
