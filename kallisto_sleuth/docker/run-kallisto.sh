@@ -42,6 +42,8 @@ then
 	mkdir $output_dir
 fi
 
+echo -e "sample\tpath\tcondition" > kallisto_output_info.txt
+
 kallisto index -i index.idx $transcriptome
 
 file_info=$( echo ${file_info} | sed 's/[{|}]/ /g' )
