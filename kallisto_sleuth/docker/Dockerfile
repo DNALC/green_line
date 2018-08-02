@@ -8,7 +8,7 @@ RUN yum update -y \
 RUN yum group install -y "Development Tools"
 RUN yum install -y epel-release
 RUN yum install -y ncurses-devel zlib-devel texinfo gtk+-devel gtk2-devel qt-devel tcl-devel tk-devel kernel-headers kernel-devel readline-devel libcurl-devel bzip2-devel.x86_64 xz-devel.x86_64 java-1.7.0-openjdk openssl-devel perl-Digest-MD5.x86_64 libssh2-devel libxml2-devel.x86_64
-
+RUN yum install -y xml2 libxml2-devel curl curl-devel openssl-devel pandoc
 # Download and install R 
 RUN yum install -y R
 
@@ -20,6 +20,10 @@ RUN cp kallisto_linux-v0.44.0/kallisto /usr/local/bin/
 # Install sleuth
 COPY sleuth_install.r .
 RUN Rscript sleuth_install.r
+
+# Setup shinyapps.io settings
+COPY shiny-apps-setup.r .
+RUN Rscript shiny-apps-setup.r
 
 # Download prinseq and copy to bin
 RUN wget https://downloads.sourceforge.net/project/prinseq/standalone/prinseq-lite-0.20.4.tar.gz
@@ -48,12 +52,14 @@ RUN rm sleuth_install.r
 RUN rm -r prinseq-lite-0.20.4.tar.gz prinseq-lite-0.20.4
 RUN rm -r samtools-1.7.tar.bz2 samtools-1.7
 
-# Add kallisto & sleuth runners
+# Add kallisto, sleuth, and shiny app deployer runners runners
 COPY run-kallisto.sh /usr/local/bin/
 COPY run-sleuth.r /usr/local/bin/
+COPY deploy-shiny-app.r /usr/local/bin/
 COPY cleanup.sh /usr/local/bin/ 
 RUN chmod u+x /usr/local/bin/run-kallisto.sh
 RUN chmod u+x /usr/local/bin/run-sleuth.r
+RUN chmod u+x /usr/local/bin/deploy-shiny-app.r
 RUN chmod u+x /usr/local/bin/cleanup.sh
 
 # Add entry points
@@ -69,5 +75,7 @@ RUN mkdir -p /scratch && chown root:root /scratch
 
 
 WORKDIR /root
+COPY app.R .
+RUN chmod u+x app.R
 
 ENTRYPOINT ["default_entrypoint.sh"]

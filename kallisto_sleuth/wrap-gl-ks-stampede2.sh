@@ -23,6 +23,7 @@ export "pseudobam=${pseudobam}"
 export "fragment_length=${fragment_length}"
 export "standard_deviation=${standard_deviation}"
 export "organism=${organism}"
+export "shiny_app_name={shiny_app_name}"
 
 cp $SINGULARITY_IMAGE .
 SINGULARITY_IMAGE=$(basename $SINGULARITY_IMAGE)
