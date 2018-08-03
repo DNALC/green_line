@@ -6,6 +6,7 @@ run-sleuth.r kallisto_output_info.txt $organism
 mkdir 
 
 if [ -z $shiny_app_name ]
+then
 	shiny_app_name="shiny_app"
 fi
 
