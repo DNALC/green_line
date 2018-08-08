@@ -28,8 +28,8 @@ RUN Rscript shiny-apps-setup.r
 # Download prinseq and copy to bin
 RUN wget https://downloads.sourceforge.net/project/prinseq/standalone/prinseq-lite-0.20.4.tar.gz
 RUN tar xzvf prinseq-lite-0.20.4.tar.gz
-RUN chmod u+x prinseq-lite-0.20.4/prinseq-* 
 RUN cp prinseq-lite-0.20.4/prinseq-* /usr/local/bin/
+RUN chmod u+x /usr/local/bin/prinseq-lite.pl 
 
 # Download samtools, install and copy to bin
 RUN wget https://github.com/samtools/samtools/releases/download/1.7/samtools-1.7.tar.bz2
@@ -75,7 +75,7 @@ RUN mkdir -p /scratch && chown root:root /scratch
 
 
 WORKDIR /root
-COPY app.R .
-RUN chmod u+x app.R
+COPY app.R /usr/local/bin/
+RUN chmod u+x /usr/local/bin/app.R
 
 ENTRYPOINT ["default_entrypoint.sh"]

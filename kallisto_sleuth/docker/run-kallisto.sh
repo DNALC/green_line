@@ -62,7 +62,7 @@ then
 			then
 			if $prinseq
 				then
-				res=$(prinseq-lite.pl -fastq <(zcat $file_name) -stats_len)
+				res=$(perl /usr/local/bin/prinseq-lite.pl -fastq <(zcat $file_name) -stats_len)
 				res=( $res )
 				fragment_length=${res[5]}
 				standard_deviation=${res[23]}
