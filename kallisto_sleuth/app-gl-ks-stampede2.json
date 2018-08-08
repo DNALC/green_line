@@ -166,14 +166,22 @@
             "type":"bool"
             }
         },
-	{"id":"organism",
-	"value":{
-		"default":"",
-		"required":false,
-		"visible":true,
-		"type":"string"
+	   {"id":"organism",
+	   "value":{
+		  "default":"",
+		  "required":false,
+		  "visible":true,
+		  "type":"string"
 		}
-	}
+	   },
+       {"id":"shiny_app_name",
+       "value":{
+          "default":"",
+          "required":false,
+          "visible":true,
+          "type":"string"
+        }
+       }
     ],
     "outputs": [
 

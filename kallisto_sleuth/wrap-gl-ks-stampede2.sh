@@ -14,7 +14,7 @@ export "seed=${seed}"
 export "single_end=${single_end}"
 export "multi_condition=${multi_condition}"
 export "bias=${bias}"
-export "threads=4"
+export "threads=16"
 export "plain_text=${plain_text}"
 export "fusion=${fusion}"
 export "fr=${fr}"
@@ -23,7 +23,7 @@ export "pseudobam=${pseudobam}"
 export "fragment_length=${fragment_length}"
 export "standard_deviation=${standard_deviation}"
 export "organism=${organism}"
-export "shiny_app_name={shiny_app_name}"
+export "shiny_app_name=${shiny_app_name}"
 
 cp $SINGULARITY_IMAGE .
 SINGULARITY_IMAGE=$(basename $SINGULARITY_IMAGE)
