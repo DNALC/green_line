@@ -1,9 +1,7 @@
 #!/bin/bash
 
 run-kallisto.sh 
-run-sleuth.r kallisto_output_info.txt $organism
-
-mkdir 
+run-sleuth.r kallisto_output_info.txt $organism 
 
 if [ -z $shiny_app_name ]
 then
