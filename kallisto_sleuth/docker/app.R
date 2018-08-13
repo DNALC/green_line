@@ -52,7 +52,7 @@ ui <- fluidPage(
                 sidebarPanel(
                     selectInput("transcript",
                         label = "Transcript",
-                        choices = sleuth_table[1],
+                        choices = sleuth_table$target_id,
                         selected = ""),
 		    if("ext_gene" %in% colnames(sleuth_table)){
                         checkboxInput("show_genes", "Show genes", value = FALSE)	
