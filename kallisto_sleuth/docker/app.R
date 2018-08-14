@@ -4,6 +4,7 @@ library(DT)
 library(plotly)
 library(data.table)
 library(dplyr)
+library(gridExtra)
 
 so <- sleuth_load(file.path("data/sleuth_object.so"))
 wald_test <- colnames(design_matrix(so))[2]
