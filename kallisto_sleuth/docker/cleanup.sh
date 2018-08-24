@@ -14,6 +14,10 @@ mv *.bai ks-output/
 tar czvf ks-downloadable-output.tar.gz ks-downloadable-output --remove-files
 mv ks-downloadable-output.tar.gz ks-output/
 
-ls | grep -vE '*.err$|envs|*.out$|^ks-output' | xargs rm -r
-
+rm *fastq.gz
+rm transcriptome_annotation.gtf.gz
+rm transcriptome.fa.gz
+rm kallisto_output_info.txt
+rm index.idx
+rm gene_bd
 

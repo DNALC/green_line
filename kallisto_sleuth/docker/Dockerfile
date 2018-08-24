@@ -21,10 +21,6 @@ RUN cp kallisto_linux-v0.44.0/kallisto /usr/local/bin/
 COPY sleuth_install.r .
 RUN Rscript sleuth_install.r
 
-# Setup shinyapps.io settings
-COPY shiny-apps-setup.r .
-RUN Rscript shiny-apps-setup.r
-
 # Download prinseq and copy to bin
 RUN wget https://downloads.sourceforge.net/project/prinseq/standalone/prinseq-lite-0.20.4.tar.gz
 RUN tar xzvf prinseq-lite-0.20.4.tar.gz
@@ -76,6 +72,8 @@ RUN mkdir -p /scratch && chown root:root /scratch
 
 WORKDIR /root
 COPY app.R /usr/local/bin/
+COPY shiny-apps-setup.r /usr/local/bin/
 RUN chmod u+x /usr/local/bin/app.R
+RUN chmod u+x /usr/local/bin/shiny-apps-setup.r
 
 ENTRYPOINT ["default_entrypoint.sh"]

@@ -15,6 +15,7 @@ if [ -f sleuth_object.so ]
 then
 	cp /usr/local/bin/app.R $shiny_app_name/
 	cp sleuth_object.so $shiny_app_name/data
+	Rscript /usr/local/bin/shiny-apps-setup.r
 	deploy-shiny-app.r $shiny_app_name
 fi
 
