@@ -7,7 +7,6 @@ for i in $( ls kallisto_output )
 	mv kallisto_output/${i}/run_info.json ks-downloadable-output/${i}_run_info.json
 done
 
-mv sleuth_object.so ks-downloadable-output/
 mv *.bam ks-output/
 mv *.bai ks-output/
 
