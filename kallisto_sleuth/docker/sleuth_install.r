@@ -15,8 +15,8 @@ install.packages('gridExtra', repos='http://cran.r-project.org', INSTALL_opts='-
 install.packages('RPostgreSQL', repos='http://cran.r-project.org', INSTALL_opts='--no-html')
 install.packages('DT', repos='http://cran.r-project.org', INSTALL_opts='--no-html')
 install.packages('lubridate', repos='http://cran.r-project.org', INSTALL_opts='--no-html')
-install.packages('rsconnect', repos='http://cran.r-project.org', INSTALL_opts='--no-html')
 biocLite("rhdf5", ask=FALSE)
 biocLite("biomaRt", ask=FALSE)
 
+devtools::install_github("rstudio/rsconnect")
 devtools::install_github("pachterlab/sleuth")
