@@ -8,7 +8,7 @@ app_name = args[1]
 bioc <- local({
 	env <- new.env()
 	on.exit(rm(env))
-	evalq(source("http://bioconductor.org/biocLite.R", local = TRUE), env)
+	evalq(source("https://bioconductor.org/biocLite.R", local = TRUE), env)
 	biocinstallRepos()
 })
 
