@@ -15,3 +15,5 @@ bioc <- local({
 options(repos=bioc)
 
 deployApp(app_name)
+setProperty("application.instances.template", "xxxlarge", appName=app_name)
+deployApp(app_name)
