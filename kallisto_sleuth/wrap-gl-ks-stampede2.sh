@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SINGULARITY_IMAGE=/work/projects/singularity/cyverse/gl-ks-singularity2.5.2.simg
+SINGULARITY_IMAGE=/work/projects/singularity/cyverse/gl-ks-r1.0.simg
 
 mkdir ks-output
 mkdir bams
