@@ -33,6 +33,7 @@ if("ens_gene" %in% colnames(sleuth_table)){
 
 # Define UI -----
 ui <- fluidPage(
+    titlePanel(img(src="dnasubway-icon.png")),
     navbarPage("Differential analysis",
         tabPanel("Results",
             sidebarLayout(
@@ -119,7 +120,7 @@ ui <- fluidPage(
                 sidebarPanel(
                     helpText(h3("Sample Heatmap"),
                         p("This is a sample to sample heatmap based on the Jensen-Shannon Divergence."),
-                        p("The Jensen-Shannon Divergence is a measure of the similarity between to probability distributions.")
+                        p("The Jensen-Shannon Divergence is a measure of the similarity between two probability distributions.")
                     )         
                 ),
 

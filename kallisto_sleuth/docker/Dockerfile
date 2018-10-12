@@ -72,6 +72,7 @@ RUN mkdir -p /scratch && chown root:root /scratch
 
 WORKDIR /root
 COPY app.R /usr/local/bin/
+COPY dnasubway-icon.png /usr/local/bin/
 COPY shiny-apps-setup.r /usr/local/bin/
 RUN chmod u+x /usr/local/bin/app.R
 RUN chmod u+x /usr/local/bin/shiny-apps-setup.r
