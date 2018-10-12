@@ -7,8 +7,11 @@ for i in $( ls kallisto_output )
 	mv kallisto_output/${i}/run_info.json ks-downloadable-output/${i}_run_info.json
 done
 
-mv *.bam ks-output/
-mv *.bai ks-output/
+if [[ "${pseudobam}" == "1" ]]
+then
+	mv *.bam ks-output/
+	mv *.bai ks-output/
+fi
 
 tar czvf ks-downloadable-output.tar.gz ks-downloadable-output --remove-files
 mv ks-downloadable-output.tar.gz ks-output/

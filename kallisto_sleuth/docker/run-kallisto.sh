@@ -42,6 +42,11 @@ then
 	mkdir $output_dir
 fi
 
+if [[ "${pseudobam}" == "1" ]]
+	then
+	execstr= "--genomebam --gtf ${transcriptome_annotation}"
+fi
+
 echo -e "sample\tpath\tcondition" > kallisto_output_info.txt
 
 kallisto index -i index.idx $transcriptome
@@ -71,10 +76,13 @@ then
 					standard_deviation=0.05
 				fi
 			fi
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t $threads --genomebam --gtf $transcriptome_annotation ${execstr} --single -l $fragment_length -s $standard_deviation $file_name
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t $threads ${execstr} --single -l $fragment_length -s $standard_deviation $file_name
 			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
-			mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
-			mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
+			if [[ "${pseudobam}" == "1" ]]
+			then
+				mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
+				mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
+			fi
 		else
 			echo "fastq files must be gzipped compressed"
 			exit 1
@@ -90,10 +98,13 @@ else
 		condition=${file[3]}
 		if file $file_1 | grep -q "gzip compressed" && file $file_2 | grep -q "gzip compressed"
 			then
-			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t $threads --genomebam --gtf $transcriptome_annotation ${execstr} $file_1 $file_2
+			kallisto quant -i index.idx -o $output_dir/$sample_name -b $bootstrap -t $threads ${execstr} $file_1 $file_2
 			echo -e "$sample_name\t$output_dir/$sample_name\t$condition\t$condition2" >> kallisto_output_info.txt
-			mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
-			mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
+			if [[ "${pseudobam}" == "1" ]]
+			then
+				mv $output_dir/$sample_name/pseudoalignments.bam ${sample_name}.bam
+				mv $output_dir/$sample_name/pseudoalignments.bam.bai ${sample_name}.bam.bai
+			fi
 		else
 			echo "fastq files must be gzipped compressed"
 			exit 1
